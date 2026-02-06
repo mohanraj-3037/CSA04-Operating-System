@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
+#include <unistd.h>
+#include <string.h>
+
+int main(){
+    int shmid;
+    char *shm;
+
+    shmid = shmget(IPC_PRIVATE, 1024, 0666 | IPC_CREAT);
+    shm = (char *) shmat(shmid, NULL, 0);
+
+    if(fork() == 0){
+        printf("Child writing to shared memory\n");
+        strcpy(shm, "Hello from Child Process");
+    }
+    else{
+        sleep(1);
+        printf("Parent reading from shared memory\n");
+        printf("Message: %s\n", shm);
+        shmdt(shm);
+        shmctl(shmid, IPC_RMID, NULL);
+    }
+
+    return 0;
+}
+
