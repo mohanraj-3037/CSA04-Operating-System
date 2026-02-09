@@ -1,0 +1,22 @@
+#include <stdio.h>
+
+int main() {
+    int n, i, start, size;
+    char name[10];
+
+    printf("Number of files: ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++) {
+        printf("File name: "); scanf("%s", name);
+        printf("Start block: "); scanf("%d", &start);
+        printf("File size: "); scanf("%d", &size);
+
+        printf("File %s blocks: ", name);
+        for (int j = start; j < start + size; j++)
+            printf("%d ", j);
+        printf("\n");
+    }
+    return 0;
+}
+

@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+int main() {
+    int f, p, pages[20], frames[10], i, j = 0, k, hit, faults = 0;
+    printf("Enter the number of Frames: "); scanf("%d", &f);
+    printf("Enter the number of Pages: "); scanf("%d", &p);
+    for (i = 0; i < p; i++) scanf("%d", &pages[i]);
+
+    for (i = 0; i < f; i++) frames[i] = -1;
+
+    for (i = 0; i < p; i++) {
+        hit = 0;
+        for (k = 0; k < f; k++)
+            if (frames[k] == pages[i]) hit = 1;
+
+        if (!hit) {
+            frames[j] = pages[i];
+            j = (j + 1) % f;
+            faults++;
+        }
+    }
+    printf("Page Faults occured in FIFO = %d\n", faults);
+    return 0;
+}
+

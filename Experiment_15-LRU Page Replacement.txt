@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+int main() {
+    int f, p, pages[20], frames[10], time[10];
+    int i, j, faults = 0, t = 0, min, pos, hit;
+
+    printf("Enter the number of Frames: "); scanf("%d", &f);
+    printf("Enter the number of Pages: "); scanf("%d", &p);
+    for (i = 0; i < p; i++) scanf("%d", &pages[i]);
+
+    for (i = 0; i < f; i++) frames[i] = -1, time[i] = 0;
+
+    for (i = 0; i < p; i++) {
+        hit = 0; t++;
+        for (j = 0; j < f; j++)
+            if (frames[j] == pages[i]) {
+                time[j] = t; hit = 1;
+            }
+
+        if (!hit) {
+            min = time[0]; pos = 0;
+            for (j = 1; j < f; j++)
+                if (time[j] < min) min = time[j], pos = j;
+
+            frames[pos] = pages[i];
+            time[pos] = t;
+            faults++;
+        }
+    }
+    printf("Page Faults occured in LRU = %d\n", faults);
+    return 0;
+}
+

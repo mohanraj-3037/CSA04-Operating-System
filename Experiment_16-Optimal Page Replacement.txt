@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+int main() {
+    int f, p, pages[20], frames[10];
+    int i, j, k, faults = 0, hit, far, pos, next;
+
+    printf("Enter the Number of Frames: "); scanf("%d", &f);
+    printf("Enter the Number of Pages: "); scanf("%d", &p);
+    for (i = 0; i < p; i++) scanf("%d", &pages[i]);
+
+    for (i = 0; i < f; i++) frames[i] = -1;
+
+    for (i = 0; i < p; i++) {
+        hit = 0;
+        for (j = 0; j < f; j++)
+            if (frames[j] == pages[i]) hit = 1;
+
+        if (!hit) {
+            faults++; far = -1;
+            for (j = 0; j < f; j++) {
+                for (k = i + 1; k < p && frames[j] != pages[k]; k++);
+                if (k > far) far = k, pos = j;
+            }
+            frames[pos] = pages[i];
+        }
+    }
+    printf("Page Faults occured in Optimal = %d\n", faults);
+    return 0;
+}
+
