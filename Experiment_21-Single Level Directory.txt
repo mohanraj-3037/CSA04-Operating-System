@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    int n, i;
+    char files[20][20], search[20];
+
+    printf("Enter number of files: ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++) {
+        printf("Enter file name %d: ", i + 1);
+        scanf("%s", files[i]);
+    }
+
+    printf("\nFiles in directory:\n");
+    for (i = 0; i < n; i++)
+        printf("%s\n", files[i]);
+
+    printf("\nEnter file name to search: ");
+    scanf("%s", search);
+
+    for (i = 0; i < n; i++) {
+        if (strcmp(files[i], search) == 0) {
+            printf("File found\n");
+            return 0;
+        }
+    }
+
+    printf("File not found\n");
+    return 0;
+}
+
