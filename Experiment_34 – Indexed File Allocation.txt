@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+int main() {
+    int indexBlock, n, blocks[10], i;
+
+    printf("Enter index block: ");
+    scanf("%d", &indexBlock);
+
+    printf("Enter number of blocks: ");
+    scanf("%d", &n);
+
+    printf("Enter block numbers:\n");
+    for(i=0;i<n;i++)
+        scanf("%d", &blocks[i]);
+
+    printf("File Blocks: ");
+    for(i=0;i<n;i++)
+        printf("%d ", blocks[i]);
+
+    return 0;
+}

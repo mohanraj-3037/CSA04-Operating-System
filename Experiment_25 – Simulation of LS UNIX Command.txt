@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <dirent.h>
+#include <sys/stat.h>
+
+int main() {
+    DIR *dir;
+    struct dirent *entry;
+    struct stat fileStat;
+
+    dir = opendir(".");
+    if (dir == NULL) {
+        perror("Unable to open directory");
+        return 1;
+    }
+
+    printf("Files in Current Directory:\n");
+
+    while ((entry = readdir(dir)) != NULL) {
+        stat(entry->d_name, &fileStat);
+        printf("%s\t%ld bytes\n", entry->d_name, fileStat.st_size);
+    }
+
+    closedir(dir);
+    return 0;
+}

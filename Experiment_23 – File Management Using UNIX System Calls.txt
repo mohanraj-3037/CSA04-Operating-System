@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <string.h>
+
+int main() {
+    int fd;
+    char buffer[100];
+
+    fd = creat("sample.txt", 0644);
+    if (fd < 0) {
+        perror("File creation failed");
+        return 1;
+    }
+
+    char data[] = "Hello UNIX System Calls!\n";
+    write(fd, data, strlen(data));
+    close(fd);
+
+    fd = open("sample.txt", O_RDONLY);
+    read(fd, buffer, sizeof(buffer));
+    printf("File Content: %s", buffer);
+
+    close(fd);
+    return 0;
+}
